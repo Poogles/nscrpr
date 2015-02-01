@@ -91,11 +91,12 @@ def grab(location, keywords, publication, publication_date, title):
 		raw_article = goose.extract(url=location)
 		description =  raw_article.meta_description.encode("utf8")
 		article =  raw_article.cleaned_text.encode("utf8")
+		split_keywords = keywords.split(',')
 
 		summary = pyteaser.SummarizeUrl(location)		
 		output = json.dumps({
 			"title": title, 
-			"keywords": keywords, 
+			"keywords": split_keywords, 
 			"publication": publication,
 			"publication_date": publication_date,
 			"description": description, 
@@ -173,7 +174,10 @@ if __name__ == '__main__':
 	"www.independent.co.uk/googlenewssitemap.jsp", 
 	"http://www.standard.co.uk/googlenewssitemap.jsp",
 	"www.telegraph.co.uk/sitemaps/news/append/news_app1.xml",
-	"http://www.theguardian.com/newssitemap.xml"
+	"http://www.theguardian.com/newssitemap.xml",
+	"http://www.mirror.co.uk/map_news.xml"
+	"http://www.thetimes.co.uk/newssitemap-1.xml",
+	]
 
 	for site in harvest_list:
 		main(site)
